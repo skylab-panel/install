@@ -31,8 +31,7 @@ cur.execute("""CREATE TABLE IF NOT EXISTS tbl_users (
     username VARCHAR(30) NOT NULL,
     password VARCHAR(100) NOT NULL,
     email VARCHAR(50),
-    account_type VARCHAR(50),
-    reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP)
+    account_type VARCHAR(50))
 """)
 
 print("The Following Infomation Will be Used for Logging into SkyLab Panel(Username and Password are Case Sestive!)")
@@ -50,7 +49,7 @@ enpassword = bcrypt.hashpw(enpassword, bcrypt.gensalt())
 email = email.strip("""!"#$%&'()*+,_/[\]^`{|}~ """) # pylint: disable=anomalous-backslash-in-string
 email = email.lower()
 
-cur.execute("INSERT INTO tbl_users (id, firstname, lastname, username, password, email, account_type, reg_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", ("", firstname, lastname, username, enpassword, email, "admin", "" ))
+cur.execute("INSERT INTO tbl_users (id, firstname, lastname, username, password, email, account_type) VALUES (?, ?, ?, ?, ?, ?, ?)", ("1", firstname, lastname, username, enpassword, email, "admin"))
 
 cur.execute("CREATE USER IF NOT EXISTS " + username + " @'localhost' IDENTIFIED BY " + password)
 cur.execute("GRANT USAGE ON *.* TO " + username + " @'localhost' IDENTIFIED BY ''")
