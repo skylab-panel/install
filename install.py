@@ -52,4 +52,6 @@ email = email.lower()
 cur.excute("INSERT INTO tbl_users (firstname, lastname, username, password, email) VALUES (?, ?)", (firstname, lastname, username, password, email))
 
 cur.excute("CREATE USER " + username + " @'localhost' IDENTIFIED BY " + password)
+cur.excute("GRANT USAGE ON *.* TO " + username + " @'localhost' IDENTIFIED BY ''")
+#
 main_config.close
