@@ -44,14 +44,14 @@ email = input("Please Enter an Email Adress: ")
 main_config.write(username+"\n")
 main_config.write(password+"\n")
 
-password = password.encode('utf-8')
-password = bcrypt.hashpw(password, bcrypt.gensalt())
+enpassword = password.encode('utf-8')
+enpassword = bcrypt.hashpw(enpassword, bcrypt.gensalt())
 email = email.strip("""!"#$%&'()*+,_/[\]^`{|}~ """) # pylint: disable=anomalous-backslash-in-string
 email = email.lower()
 
-cur.excute("INSERT INTO tbl_users (firstname, lastname, username, password, email) VALUES (?, ?)", (firstname, lastname, username, password, email))
+cur.execute("INSERT INTO tbl_users (firstname, lastname, username, password, email) VALUES (?, ?)", (firstname, lastname, username, enpassword, email))
 
-cur.excute("CREATE USER " + username + " @'localhost' IDENTIFIED BY " + password)
-cur.excute("GRANT USAGE ON *.* TO " + username + " @'localhost' IDENTIFIED BY ''")
+cur.execute("CREATE USER " + username + " @'localhost' IDENTIFIED BY " + password)
+cur.execute("GRANT USAGE ON *.* TO " + username + " @'localhost' IDENTIFIED BY ''")
 #
 main_config.close
