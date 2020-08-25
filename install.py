@@ -51,5 +51,5 @@ email = email.lower()
 
 cur.excute("INSERT INTO tbl_users (firstname, lastname, username, password, email) VALUES (?, ?)", (firstname, lastname, username, password, email))
 
-cur.execute("CREATE USER " + username + " @'localhost' IDENTIFIED BY " + password)
+cur.excute("CREATE USER " + username + " @'localhost' IDENTIFIED BY " + password)
 main_config.close
