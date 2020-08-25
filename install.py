@@ -30,7 +30,7 @@ try:
         password=sys.argv[1],
         host="localhost",
         port=3306,
-        database="skylabpanel"
+        database="skylabpanel",
     )
 except mariadb.Error as e:
     print(f"Error connecting to MariaDB Platform: {e}")
