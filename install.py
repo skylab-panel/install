@@ -12,7 +12,7 @@ main_config = open("/skylabpanel/main.conf", "w")
 try:
     conn = mariadb.connect(
         user="root",
-        password=sys.argv[1],
+        password="Hello@World14",
         host="localhost",
         port=3306,
     )
@@ -47,12 +47,15 @@ main_config.write(password+"\n")
 
 enpassword = password.encode('utf-8')
 enpassword = bcrypt.hashpw(enpassword, bcrypt.gensalt())
+password = pformat(password)
 email = email.strip("""!"#$%&'()*+,_/[\]^`{|}~ """) # pylint: disable=anomalous-backslash-in-string
 email = email.lower()
 
-cur.execute("INSERT INTO tbl_users (id, firstname, lastname, username, password, email, account_type) VALUES (?, ?, ?, ?, ?, ?, ?)", ("1", firstname, lastname, username, enpassword, email, "admin"))
+cur.execute("INSERT INTO tbl_users (firstname, lastname, username, password, email, account_type) VALUES (?, ?, ?, ?, ?, ?)", (firstname, lastname, username, enpassword, email, 'admin'))
 
-cur.execute("CREATE USER " + username + "@'localhost' IDENTIFIED BY " + pformat(password))
-cur.execute("GRANT USAGE ON *.* TO " + username + "@'localhost' IDENTIFIED BY ''")
+print ("CREATE USER IF NOT EXISTS " + username + "@'localhost' IDENTIFIED BY " + password) # This line should be removed but makes the program work so I am keep it for now!
+cur.execute("CREATE USER IF NOT EXISTS " + username + "@'localhost' IDENTIFIED BY " + password)
+cur.execute("GRANT ALL PRIVILEGES ON * TO " + username +"@'localhost'")
+cur.execute("FLUSH PRIVILEGES")
 #
 main_config.close
