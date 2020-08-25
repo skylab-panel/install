@@ -59,3 +59,5 @@ cur.execute("GRANT ALL PRIVILEGES ON * TO " + username +"@'localhost'")
 cur.execute("FLUSH PRIVILEGES")
 #
 main_config.close
+
+#
