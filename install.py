@@ -21,10 +21,10 @@ except mariadb.Error as e:
 else:
     print("Successful Conection to the Database")
 cur = conn.cursor()
-cur.execute("CREATE DATABASE skylabpanel")
+cur.execute("CREATE OR REPLACE DATABASE skylabpanel")
 cur.execute("USE skylabpanel")
 
-cur.execute("""CREATE TABLE tbl_users (
+cur.execute("""CREATE OR REPLACE TABLE tbl_users (
     id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     firstname VARCHAR(30) NOT NULL,
     lastname VARCHAR(30) NOT NULL,
@@ -49,9 +49,9 @@ enpassword = bcrypt.hashpw(enpassword, bcrypt.gensalt())
 email = email.strip("""!"#$%&'()*+,_/[\]^`{|}~ """) # pylint: disable=anomalous-backslash-in-string
 email = email.lower()
 
-cur.execute("INSERT INTO tbl_users (firstname, lastname, username, password, email) VALUES (?, ?)", (firstname, lastname, username, enpassword, email))
+cur.execute("INSERT INTO tbl_users (firstname, lastname, username, password, email) VALUES (?, ?, ?, ?)", (firstname, lastname, username, enpassword, email))
 
-cur.execute("CREATE USER " + username + " @'localhost' IDENTIFIED BY " + password)
+cur.execute("CREATE USER IF NOT EXISTS " + username + " @'localhost' IDENTIFIED BY " + password)
 cur.execute("GRANT USAGE ON *.* TO " + username + " @'localhost' IDENTIFIED BY ''")
 #
 main_config.close
