@@ -21,7 +21,7 @@ except mariadb.Error as e:
 else:
     print("Successful Conection to the Database")
 cur = conn.cursor()
-cur.execute("CREATE DATABASE IF NOT EXISTS DATABASE skylabpanel")
+cur.execute("CREATE DATABASE IF NOT EXISTS skylabpanel")
 cur.execute("USE skylabpanel")
 
 cur.execute("""CREATE TABLE IF NOT EXISTS tbl_users (
