@@ -21,10 +21,10 @@ except mariadb.Error as e:
 else:
     print("Successful Conection to the Database")
 cur = conn.cursor()
-cur.execute("CREATE OR REPLACE DATABASE skylabpanel")
+cur.execute("CREATE DATABASE IF NOT EXISTS DATABASE skylabpanel")
 cur.execute("USE skylabpanel")
 
-cur.execute("""CREATE OR REPLACE TABLE tbl_users (
+cur.execute("""CREATE TABLE IF NOT EXISTS tbl_users (
     id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     firstname VARCHAR(30) NOT NULL,
     lastname VARCHAR(30) NOT NULL,
