@@ -12,7 +12,7 @@ main_config = open("/skylabpanel/main.conf", "w")
 try:
     conn = mariadb.connect(
         user="root",
-        password="Hello@World14",
+        password="sys.argv[1]",
         host="localhost",
         port=3306,
     )
