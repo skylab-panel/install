@@ -1,12 +1,13 @@
 #!/bin/bash
 
+PURPLE='\033[0;35m'
 YELLOW='\033[1;33m'
 RED='\033[0;31m'
 BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
 if [ "$EUID" -ne 0 ]
-  then printf "${RED}Please run as root!S${NC}\n"
+  then printf "${RED}Please run as root!${NC}\n"
   exit
 fi
 cd /tmp/
@@ -40,9 +41,9 @@ printf "${BLUE}Installing Php my Admin, Email Dns and others${NC}\n"
 sleep 2
 apt-get install phpmyadmin letseNCrypt -y
 # Database #
-printf "${BLUE}Installing some Stuff for the Database${NC}\n"
+printf "${BLUE}Installing C modules for Python Maria Database Connector!${NC}\n"
 sleep  2
-apt install libmariadb3 libmariadb-dev -y
+apt install gcc libmariadb3 libmariadb-dev -y
 # Python #
 printf "${BLUE}Installing Python${NC}\n"
 sleep 2
@@ -61,8 +62,9 @@ printf "[mysqld]\ndefault_authentication_plugin=mysql_native_password\n" | tee -
 sleep 2
 printf "${BLUE}For Security you need to set a Database password.${NC}\n"
 sleep 2
-printf "Enter Root MySql Password"
+printf "${PURPLE}Enter Root MySql Password: "
 read mypassword
+printf "${NC}"
 mysqladmin -u password $mypassword
 wget https://raw.githubusercontent.com/skylab-panel/install/master/install.py
 python3 install.py $mypassword
