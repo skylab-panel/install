@@ -22,7 +22,7 @@ else:
     print("Successful Conection to the Database")
 cur = conn.cursor()
 cur.execute("CREATE DATABASE skylabpanel")
-
+conn.close()
 # Conect to Database and add User #
 try:
     conn = mariadb.connect(
@@ -37,6 +37,7 @@ except mariadb.Error as e:
     sys.exit(1)
 else:
     print("Successful Conection to the Database")
+cur = conn.cursor()
 
 cur.execute("""CREATE TABLE tbl_users (
     id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
