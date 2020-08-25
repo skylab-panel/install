@@ -53,6 +53,9 @@ pip3 install flask
 pip3 install bcrypt
 pip3 install mariadb
 printf "${BLUE}Everything is installed.Now SkyLab Panel needs to update some configuration files. ${NC}\n"
+cd / 
+mkdir skylabpanel 
+cd /tmp/
 sleep 2
 printf "[mysqld]\ndefault_authentication_plugin=mysql_native_password\n" | tee -a /etc/mysql/my.cnf
 sleep 2
