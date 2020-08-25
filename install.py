@@ -3,6 +3,7 @@ import subprocess
 import time
 import os, sys
 import bcrypt
+from pprint import pformat
 
 os.chdir("/")
 main_config = open("/skylabpanel/main.conf", "w")
@@ -51,7 +52,7 @@ email = email.lower()
 
 cur.execute("INSERT INTO tbl_users (id, firstname, lastname, username, password, email, account_type) VALUES (?, ?, ?, ?, ?, ?, ?)", ("1", firstname, lastname, username, enpassword, email, "admin"))
 
-cur.execute("CREATE USER " + username + "@'localhost' IDENTIFIED BY " + password)
+cur.execute("CREATE USER " + username + "@'localhost' IDENTIFIED BY " + pformat(password))
 cur.execute("GRANT USAGE ON *.* TO " + username + "@'localhost' IDENTIFIED BY ''")
 #
 main_config.close
