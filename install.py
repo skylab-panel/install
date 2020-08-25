@@ -5,7 +5,7 @@ import os, sys
 import bcrypt
 
 
-print(sys.argv)
+print(sys.argv[1])
 
 
 os.chdir("/")
