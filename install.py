@@ -51,7 +51,7 @@ email = email.lower()
 
 cur.execute("INSERT INTO tbl_users (id, firstname, lastname, username, password, email, account_type) VALUES (?, ?, ?, ?, ?, ?, ?)", ("1", firstname, lastname, username, enpassword, email, "admin"))
 
-cur.execute("CREATE USER " + username + " @'localhost' IDENTIFIED BY " + password)
-cur.execute("GRANT USAGE ON *.* TO " + username + " @'localhost' IDENTIFIED BY ''")
+cur.execute("CREATE USER " + username + "@'localhost' IDENTIFIED BY " + password)
+cur.execute("GRANT USAGE ON *.* TO " + username + "@'localhost' IDENTIFIED BY ''")
 #
 main_config.close
