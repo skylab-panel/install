@@ -14,33 +14,27 @@ os.chdir("/")
 
 # Config File #
 subprocess.run(['bash','-c', 'cd / & mkdir skylabpanel'])
-main_config = open("/skylabpanel/main.txt", "w")
+main_config = open("/skylabpanel/main.conf", "w")
 
 # Create skylabpanel Database #
-print ("\nSkyLab Panel needs to set its configration file. Follow on Screen Instructions! \n")
-time.sleep(2)
-mysqlrootusername = input("Enter MySQL Root Username: ")
-mysqlrootpassword = input("Enter MySQL Root Password: ")
-mydb = mysql.connector.connect(
-    host="localhost",
-    user=mysqlrootusername,
-    password=mysqlrootpassword,
-    auth_plugin='mysql_native_password',
-)
-mycursor = mydb.cursor()
-
-
-mycursor.execute("CREATE DATABASE skylabpanel")
+try:
+    conn = mariadb.connect(
+        user="root",
+        password=sys.argv[1],
+        host="localhost",
+        port=3306,
+    )
+except mariadb.Error as e:
+    print(f"Error connecting to MariaDB Platform: {e}")
+    sys.exit(1)
+else:
+    print("Successful Conection to the Database")
+cur = conn.cursor()
+cur.execute("CREATE DATABASE skylabpanel")
 
 # Conect to Database and add User #
-mydb = mysql.connector.connect(
-    host="localhost",
-    user=mysqlrootusername,
-    password=mysqlrootpassword,
-    database="skylabpanel",
-    auth_plugin='mysql_native_password',
-)
-mycursor.execute("""CREATE TABLE tbl_users (
+
+cur.execute("""CREATE TABLE tbl_users (
     id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     firstname VARCHAR(30) NOT NULL,
     lastname VARCHAR(30) NOT NULL,
@@ -65,9 +59,7 @@ password = bcrypt.hashpw(password, bcrypt.gensalt())
 email = email.strip("""!"#$%&'()*+,_/[\]^`{|}~ """) # pylint: disable=anomalous-backslash-in-string
 email = email.lower()
 
-sql = "INSERT INTO tbl_users (firstname, lastname, username, password, email) VALUES (%s, %s, %s, %s, %s)"
-val = (firstname, lastname, username, password, email)
-mycursor.execute(sql, val)
+cur.excute("INSERT INTO tbl_users (firstname, lastname, username, password, email) VALUES (?, ?)", (firstname, lastname, username, password, email))
 
-mycursor.execute("CREATE USER " + username + " @'localhost' IDENTIFIED BY " + password)
-mydb.commit()
+cur.execute("CREATE USER " + username + " @'localhost' IDENTIFIED BY " + password)
+main_config.close
