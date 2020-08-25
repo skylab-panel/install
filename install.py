@@ -5,9 +5,8 @@ import os, sys
 import bcrypt
 
 
-# This script must be run as root!
-if not os.geteuid()==0:
-    sys.exit('This script must be run as root!')
+print(sys.argv)
+
 
 os.chdir("/")
 

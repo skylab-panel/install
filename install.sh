@@ -56,7 +56,10 @@ printf "${BLUE}Everything is installed.Now SkyLab Panel needs to update some con
 sleep 2
 printf "[mysqld]\ndefault_authentication_plugin=mysql_native_password\n" | tee -a /etc/mysql/my.cnf
 sleep 2
-printf "${BLUE}For Security you need to set a Database password. Do so now!${NC}\n"
+printf "${BLUE}For Security you need to set a Database password.${NC}\n"
 sleep 2
-mysql_secure_installation
-#python3 install.py
+printf "Enter Root MySql Password"
+read mypassword
+mysqladmin -u password $mypassword
+wget https://raw.githubusercontent.com/skylab-panel/install/master/install.py
+python3 install.py $mypassword
