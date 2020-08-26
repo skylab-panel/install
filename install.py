@@ -32,8 +32,8 @@ cur.execute("""CREATE TABLE IF NOT EXISTS tbl_users (
     username VARCHAR(30) NOT NULL,
     email VARCHAR(50),
     password VARCHAR(100) NOT NULL,
-    account_type VARCHAR(50)),
-    domains VARCHAR(50)),
+    account_type VARCHAR(50),
+    domains VARCHAR(50),
     package VARCHAR(50)),
 """)
 
