@@ -30,9 +30,11 @@ cur.execute("""CREATE TABLE IF NOT EXISTS tbl_users (
     firstname VARCHAR(30) NOT NULL,
     lastname VARCHAR(30) NOT NULL,
     username VARCHAR(30) NOT NULL,
-    password VARCHAR(100) NOT NULL,
     email VARCHAR(50),
-    account_type VARCHAR(50))
+    password VARCHAR(100) NOT NULL,
+    account_type VARCHAR(50)),
+    domains VARCHAR(50)),
+    package VARCHAR(50)),
 """)
 
 print("The Following Infomation Will be Used for Logging into SkyLab Panel(Username and Password are Case Sestive!)")
