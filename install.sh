@@ -40,7 +40,10 @@ apt-get install apache2 mariadb-server php libapache2-mod-php php-mysql -y
 # Other Services #
 printf "${BLUE}Installing Php my Admin, Email Dns and others${NC}\n"
 sleep 2
-apt-get install phphmyadmin curl -y
+apt-get install curl -y
+apt-get install phpmyadmin php-mbstring php-gettext
+phpenmod mbstring
+systemctl restart apache2
 # Database #
 printf "${BLUE}Installing C modules for Python Maria Database Connector!${NC}\n"
 sleep  2
@@ -57,6 +60,9 @@ sleep 2
 pip3 install flask
 pip3 install bcrypt
 pip3 install mariadb
+pip3 install WTForms
+pip3 install wtforms.validators
+pip3 install flask_wtf
 printf "${BLUE}Everything is installed.Now SkyLab Panel needs to update some configuration files. ${NC}\n"
 cd / 
 mkdir skylabpanel 
