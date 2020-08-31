@@ -21,7 +21,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `skylabpanel`
 --
-
+CREATE DATABASE IF NOT EXISTS skylabpanel;
+USE skylabpanel;
 -- --------------------------------------------------------
 
 --

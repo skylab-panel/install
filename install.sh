@@ -71,5 +71,5 @@ read mypassword
 printf $mypassword
 printf "${NC}"
 mysqladmin --user=root password $mypassword
-mysql -u root -p $mypassword < skylabpanel.sql
+mysql -u root -p < skylabpanel.sql
 python3 install.py $mypassword
