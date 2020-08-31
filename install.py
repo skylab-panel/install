@@ -12,7 +12,7 @@ main_config = open("/skylabpanel/main.conf", "w")
 try:
     conn = mariadb.connect(
         user="root",
-        password="sys.argv[1]",
+        password=sys.argv[1],
         host="localhost",
         port=3306,
     )
@@ -22,20 +22,7 @@ except mariadb.Error as e:
 else:
     print("Successful Conection to the Database")
 cur = conn.cursor()
-cur.execute("CREATE DATABASE IF NOT EXISTS skylabpanel")
-cur.execute("USE skylabpanel")
 
-cur.execute("""CREATE TABLE IF NOT EXISTS tbl_users (
-    id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    firstname VARCHAR(30) NOT NULL,
-    lastname VARCHAR(30) NOT NULL,
-    username VARCHAR(30) NOT NULL,
-    email VARCHAR(50),
-    password VARCHAR(100) NOT NULL,
-    account_type VARCHAR(50),
-    domains VARCHAR(50),
-    package VARCHAR(50)),
-""")
 
 print("The Following Infomation Will be Used for Logging into SkyLab Panel(Username and Password are Case Sestive!)")
 firstname = input("Please Enter your Firstname: ")
@@ -57,7 +44,7 @@ cur.execute("INSERT INTO tbl_users (firstname, lastname, username, password, ema
 
 print ("CREATE USER IF NOT EXISTS " + username + "@'localhost' IDENTIFIED BY " + password) # This line should be removed but makes the program work so I am keep it for now!
 cur.execute("CREATE USER IF NOT EXISTS " + username + "@'localhost' IDENTIFIED BY " + password)
-cur.execute("GRANT ALL PRIVILEGES ON * TO " + username +"@'localhost'")
+cur.execute("GRANT ALL PRIVILEGES ON * TO " + username +"@'localhost' WITH GRANT OPTION")
 cur.execute("FLUSH PRIVILEGES")
 #
 main_config.close

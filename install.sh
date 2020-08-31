@@ -11,6 +11,7 @@ if [ "$EUID" -ne 0 ]
   exit
 fi
 cd /tmp/
+
 printf "${YELLOW}"
 printf '
  .d8888b.  888               888               888           8888888b.                            888 
@@ -39,11 +40,14 @@ apt-get install apache2 mariadb-server php libapache2-mod-php php-mysql -y
 # Other Services #
 printf "${BLUE}Installing Php my Admin, Email Dns and others${NC}\n"
 sleep 2
-apt-get install phpmyadmin letseNCrypt -y
+apt-get install phphmyadmin curl -y
 # Database #
 printf "${BLUE}Installing C modules for Python Maria Database Connector!${NC}\n"
 sleep  2
 apt install gcc libmariadb3 libmariadb-dev -y
+printf "${BLUE}Downloading some Scripts for Later${NC}\n"
+wget https://raw.githubusercontent.com/skylab-panel/install/master/install.py
+wget https://raw.githubusercontent.com/skylab-panel/install/master/skylabpanel.sql
 # Python #
 printf "${BLUE}Installing Python${NC}\n"
 sleep 2
@@ -64,7 +68,8 @@ printf "${BLUE}For Security you need to set a Database password.${NC}\n"
 sleep 2
 printf "${PURPLE}Enter Root MySql Password: "
 read mypassword
+printf $mypassword
 printf "${NC}"
-mysqladmin -u password $mypassword
-wget https://raw.githubusercontent.com/skylab-panel/install/master/install.py
+mysqladmin --user=root password $mypassword
+mysql -u root -p $mypassword < skylabpanel.sql
 python3 install.py $mypassword
