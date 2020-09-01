@@ -68,14 +68,15 @@ cd /
 mkdir skylabpanel 
 cd /tmp/
 sleep 2
-printf "[mysqld]\ndefault_authentication_plugin=mysql_native_password\n" | tee -a /etc/mysql/my.cnf
+#printf "[mysqld]\ndefault_authentication_plugin=mysql_native_password\n" | tee -a /etc/mysql/my.cnf
 sleep 2
 printf "${BLUE}For Security you need to set a Database password.${NC}\n"
 sleep 2
 printf "${PURPLE}Enter Root MySql Password: "
 read mypassword
-printf $mypassword
 printf "${NC}"
+mysql -u root -p $mypassword -e "INSTALL SONAME 'auth_ed25519';"
+printf "[mariadb]\nplugin_load_add = auth_ed25519\ndefault_authentication_plugin=auth_ed25519\n" | tee -a /etc/mysql/my.cnf
 mysqladmin --user=root password $mypassword
 mysql -u root -p < skylabpanel.sql
 python3 install.py $mypassword
