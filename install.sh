@@ -59,7 +59,7 @@ mv /var/www/skylabpanel-tools/html/phpMyAdmin* /var/www/skylabpanel-tools/html/p
 
 # SQL #
 wget https://raw.githubusercontent.com/skylab-panel/install/master/phpmyadmin-setup.sql
-wget  https://github.com/skylab-panel/install/blob/master/update_files.py
+wget https://raw.githubusercontent.com/skylab-panel/install/master/update_files.py
 python3 update_files.py
 mysql < phpmyadmin-setup.sql
 mysql -u pma phpmyadmin --password=password_here  < /var/www/skylabpanel-tools/html/phpmyadmin/sql/create_tables.sql
