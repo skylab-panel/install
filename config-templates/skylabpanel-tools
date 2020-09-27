@@ -1,10 +1,10 @@
 server {
 	listen 2052;
 	listen 2053 ssl;
-    ssl_certificate /etc/ssl/certs/nginx-selfsigned.crt;
-    ssl_certificate_key /etc/ssl/private/nginx-selfsigned.key;
+    	ssl_certificate /etc/ssl/certs/nginx-selfsigned.crt;
+    	ssl_certificate_key /etc/ssl/private/nginx-selfsigned.key;
 
-	root /var/www/sqlbuddy/html;
+	root /var/www/skylabpanel-tools/html;
 	index index.php;
 
 	server_name _;
