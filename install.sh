@@ -62,8 +62,9 @@ sleep 2
 wget https://raw.githubusercontent.com/skylab-panel/install/master/phpmyadmin-setup.sql
 wget https://raw.githubusercontent.com/skylab-panel/install/master/update_files.py
 python3 update_files.py
+phpmyadmin_password=$(cat /skylabpanel/info.conf | head -3 | tail -1)
 mysql < phpmyadmin-setup.sql
-mysql -u pma phpmyadmin --password=password_here  < /var/www/skylabpanel-tools/html/phpmyadmin/sql/create_tables.sql
+mysql -u pma phpmyadmin --password=$phpmyadmin_password  < /var/www/skylabpanel-tools/html/phpmyadmin/sql/create_tables.sql
 
 # Tiny File Manager #
 printf "${BLUE}Installing and Setting up TinyFileManager!${NC}\n"

@@ -11,8 +11,8 @@ phpmyadmin_setup_file.write(phpmyadmin_setup_file_data)
 phpmyadmin_setup_file.close
 
 os.chdir("/")
-main_config = open("/skylabpanel/info.conf", "w")
+main_config = open("/skylabpanel/info.conf", "w+")
 main_config.write("PHPmyAdmin")
-main_config.write("Username: pma")
-main_config.write("Password: " + phpmyadmin_password)
+main_config.write("pma")
+main_config.write(phpmyadmin_password)
 main_config.close
