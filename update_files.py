@@ -12,7 +12,7 @@ phpmyadmin_setup_file.close
 
 os.chdir("/")
 main_config = open("/skylabpanel/info.conf", "w+")
-main_config.write("PHPmyAdmin")
-main_config.write("pma")
-main_config.write(phpmyadmin_password)
+main_config.write("PHPmyAdmin\n")
+main_config.write("pma\n")
+main_config.write(phpmyadmin_password+"\n")
 main_config.close
