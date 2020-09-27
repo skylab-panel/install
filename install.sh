@@ -61,11 +61,11 @@ mysql -u pma phpmyadmin < /var/www/skylabpanel-tools/html/phpmyadmin/sql/create_
 # Tiny File Manager #
 printf "${BLUE}Installing and Setting up TinyFileManager!${NC}\n"
 wget https://github.com/prasathmani/tinyfilemanager/archive/master.zip
-unzip -q master-zip -d /var/www/skylabpanel-tools/html
+unzip -q master.zip -d /var/www/skylabpanel-tools/html
 mv /var/www/skylabpanel-tools/html/master /var/www/skylabpanel-tools/html/tinyfilemanager
 
 # Setup Nginx for Tiny File Manger and PHPmyAdmin #
-wget -p /etc/nginx/sites-available https://raw.githubusercontent.com/skylab-panel/install/master/config-templates/skylabpanel-tools
+wget -P /etc/nginx/sites-available https://raw.githubusercontent.com/skylab-panel/install/master/config-templates/skylabpanel-tools
 sudo ln -s /etc/nginx/sites-available/ /etc/nginx/sites-enabled/
 sudo chmod -R 755 /var/www
 
