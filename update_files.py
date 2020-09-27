@@ -14,5 +14,5 @@ os.chdir("/")
 main_config = open("/skylabpanel/info.conf", "w+")
 main_config.write("PHPmyAdmin\n")
 main_config.write("pma\n")
-main_config.write(phpmyadmin_password+"\n")
+main_config.write(str(phpmyadmin_password)+"\n")
 main_config.close
