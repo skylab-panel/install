@@ -39,7 +39,7 @@ apt-get upgrade -y
 # Installing LEMP #
 printf "${BLUE}Installing LEMP Stack${NC}\n"
 sleep 2
-apt-get install nginx mariadb-server php libapache2-mod-php php-mysql php-fpm -y
+apt-get install nginx mariadb-server php libapache2-mod-php php-mysql php-fpm unzip -y
 
 # C Comlier and Modules #
 printf "${BLUE}Installing C modules for Python Maria Database Connector & iRedMail!${NC}\n"
@@ -49,7 +49,7 @@ apt install gcc libmariadb3 libmariadb-dev -y
 # PHPmyAdmin #
 printf "${BLUE} Installing and Seting up PHPmyAdmin!${NC}\n"
 sleep 2
-apt-get install php-mbstring 
+apt-get install php-mbstring -y
 a2enmod mbstring
 mkdir /var/www/skylabpanel-tools
 mkdir /var/www/skylabpanel-tools/html
