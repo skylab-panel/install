@@ -1,0 +1,5 @@
+CREATE DATABASE phpmyadmin CHARACTER SET UTF8 COLLATE UTF8_BIN;
+CREATE USER 'pma'@'%' IDENTIFIED BY 'password_here';
+GRANT ALL PRIVILEGES ON phpmyadmin .* TO 'pma'@'%';
+exit
+
