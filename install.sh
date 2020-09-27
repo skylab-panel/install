@@ -11,6 +11,8 @@ if [ "$EUID" -ne 0 ]
   then printf "${RED}Please run as root!${NC}\n"
   exit
 fi
+cd / 
+mkdir skylabpanel 
 cd /tmp/
 
 printf "${YELLOW}"
@@ -64,7 +66,7 @@ wget https://raw.githubusercontent.com/skylab-panel/install/master/update_files.
 python3 update_files.py
 phpmyadmin_password=$(cat /skylabpanel/info.conf | head -3 | tail -1)
 mysql < phpmyadmin-setup.sql
-mysql -u pma phpmyadmin --password=$phpmyadmin_password  < /var/www/skylabpanel-tools/html/phpmyadmin/sql/create_tables.sql
+mysql -u pma -p$phpmyadmin_password  < /var/www/skylabpanel-tools/html/phpmyadmin/sql/create_tables.sql
 
 # Tiny File Manager #
 printf "${BLUE}Installing and Setting up TinyFileManager!${NC}\n"
@@ -106,9 +108,7 @@ pip3 install flask_wtf
 
 
 printf "${BLUE}Everything is installed.Now SkyLab Panel needs to update some configuration files. ${NC}\n"
-cd / 
-mkdir skylabpanel 
-cd /tmp/
+
 sleep 2
 
 #SQL Stuff
