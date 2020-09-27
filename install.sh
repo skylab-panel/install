@@ -51,6 +51,7 @@ printf "${BLUE} Installing and Seting up PHPmyAdmin!${NC}\n"
 sleep 2
 apt-get install php-mbstring php-gettext
 phpenmod mbstring
+mkdir /var/www/skylabpanel-tools
 mkdir /var/www/skylabpanel-tools/html
 wget https://go.skylabhosting.co.uk/software-phpmyadmin
 unzip -q software-phpmyadmin -d /var/www/skylabpanel-tools/html
