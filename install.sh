@@ -54,16 +54,17 @@ phpenmod mbstring
 mkdir /var/www/skylabpanel-tools
 mkdir /var/www/skylabpanel-tools/html
 wget https://go.skylabhosting.co.uk/software-phpmyadmin
+wget https://raw.githubusercontent.com/skylab-panel/install/master/phpmyadmin-setup.sql
 unzip -q software-phpmyadmin -d /var/www/skylabpanel-tools/html
 mv /var/www/skylabpanel-tools/html/phpMyAdmin* /var/www/skylabpanel-tools/html/phpmyadmin
 mysql < phpmyadmin-setup.sql
-mysql -u pma phpmyadmin < /var/www/skylabpanel-tools/html/phpmyadmin/sql/create_tables.sql
+mysql -u pma phpmyadmin --password=password_here  < /var/www/skylabpanel-tools/html/phpmyadmin/sql/create_tables.sql
 
 # Tiny File Manager #
 printf "${BLUE}Installing and Setting up TinyFileManager!${NC}\n"
 wget https://github.com/prasathmani/tinyfilemanager/archive/master.zip
 unzip -q master.zip -d /var/www/skylabpanel-tools/html
-mv /var/www/skylabpanel-tools/html/master /var/www/skylabpanel-tools/html/tinyfilemanager
+mv /var/www/skylabpanel-tools/html/tinyfilemanager-master /var/www/skylabpanel-tools/html/tinyfilemanager
 
 # Setup Nginx for Tiny File Manger and PHPmyAdmin #
 wget -P /etc/nginx/sites-available https://raw.githubusercontent.com/skylab-panel/install/master/config-templates/skylabpanel-tools
