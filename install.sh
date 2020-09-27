@@ -54,9 +54,13 @@ a2enmod mbstring
 mkdir /var/www/skylabpanel-tools
 mkdir /var/www/skylabpanel-tools/html
 wget https://go.skylabhosting.co.uk/software-phpmyadmin
-wget https://raw.githubusercontent.com/skylab-panel/install/master/phpmyadmin-setup.sql
 unzip -q software-phpmyadmin -d /var/www/skylabpanel-tools/html
 mv /var/www/skylabpanel-tools/html/phpMyAdmin* /var/www/skylabpanel-tools/html/phpmyadmin
+
+# SQL #
+wget https://raw.githubusercontent.com/skylab-panel/install/master/phpmyadmin-setup.sql
+wget  https://github.com/skylab-panel/install/blob/master/update_files.py
+python3 update_files.py
 mysql < phpmyadmin-setup.sql
 mysql -u pma phpmyadmin --password=password_here  < /var/www/skylabpanel-tools/html/phpmyadmin/sql/create_tables.sql
 
