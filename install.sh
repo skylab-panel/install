@@ -13,7 +13,7 @@ if [ "$EUID" -ne 0 ]
 fi
 cd / 
 mkdir skylabpanel 
-cd /tmp/
+cd /skylabpanel-install
 
 printf "${YELLOW}"
 printf '
@@ -56,13 +56,11 @@ a2enmod mbstring
 mkdir /var/www/skylabpanel-tools
 mkdir /var/www/skylabpanel-tools/html
 wget https://go.skylabhosting.co.uk/software-phpmyadmin
-unzip -q software-phpmyadmin -d /var/www/skylabpanel-tools/html
+tar -xf software-phpmyadmin -C /var/www/skylabpanel-tools/html
 mv /var/www/skylabpanel-tools/html/phpMyAdmin* /var/www/skylabpanel-tools/html/phpmyadmin
 
 # SQL #
 sleep 2
-wget https://raw.githubusercontent.com/skylab-panel/install/master/phpmyadmin-setup.sql
-wget https://raw.githubusercontent.com/skylab-panel/install/master/update_files.py
 python3 update_files.py
 phpmyadmin_password=$(cat /skylabpanel/info.conf | head -3 | tail -1)
 mysql < phpmyadmin-setup.sql
@@ -76,7 +74,7 @@ unzip -q master.zip -d /var/www/skylabpanel-tools/html
 mv /var/www/skylabpanel-tools/html/tinyfilemanager-master /var/www/skylabpanel-tools/html/tinyfilemanager
 
 # Setup Nginx for Tiny File Manger and PHPmyAdmin #
-wget -P /etc/nginx/sites-available https://raw.githubusercontent.com/skylab-panel/install/master/config-templates/skylabpanel-tools
+cp /config-templates/skylabpanel-tools /etc/nginx/sites-available 
 sudo ln -s /etc/nginx/sites-available/skylabpanel-tools /etc/nginx/sites-enabled/
 sudo chmod -R 755 /var/www
 
@@ -84,14 +82,12 @@ sudo chmod -R 755 /var/www
 printf "${BLUE} Installing and Seting up iRedMail${NC}\n"
 sleep 2
 wget https://go.skylabhosting.co.uk/software-iredmail
-tar zxf iRedMail-*.tar.gz
-bash iRedMail-*/iredmail.sh
+tar -xf iRedMail 
+bash iRedMail/iredmail.sh
 
 # Extra Scripts #
 sleep 2
 printf "${BLUE}Downloading some Scripts for Later${NC}\n"
-wget https://raw.githubusercontent.com/skylab-panel/install/master/install.py
-wget https://raw.githubusercontent.com/skylab-panel/install/master/skylabpanel.sql
 
 # Python Stuff#
 printf "${BLUE}Installing Python${NC}\n"
