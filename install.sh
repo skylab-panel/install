@@ -80,10 +80,10 @@ cd iRedMail
 chmod +x iRedMail.sh
 /bin/bash iRedMail.sh
 cat /root/skylabpanel-install/iRedMail/iRedMail.tips >> /skylabpanel/info.conf
+cd /root/skylabpanel-install/
 
 # Setup Nginx for Tiny File Manger and PHPmyAdmin #
 cp config-templates/00-default-ssl.conf /etc/nginx/sites-available 
-sudo ln -s /etc/nginx/sites-available/skylabpanel-tools /etc/nginx/sites-enabled/
 sudo chmod -R 755 /var/www
 
 # Extra Scripts #
@@ -102,7 +102,6 @@ pip3 install mariadb
 pip3 install WTForms
 pip3 install wtforms.validators
 pip3 install flask_wtf
-pip3 install socket
 pip3 install fqdn
 pip3 install nslookup
 
@@ -111,7 +110,7 @@ printf "${BLUE}Everything is installed.Now SkyLab Panel needs to update some con
 sleep 2
 
 #SQL Stuff
-mysql -u root -p < skylabpanel.sql
+mysql -u root < skylabpanel.sql
 mysql -u root -e "INSTALL SONAME 'auth_ed25519';"
 printf "${BLUE}For Security you need to set a Database password.${NC}\n"
 sleep 2
