@@ -48,6 +48,14 @@ cur.execute("CREATE USER IF NOT EXISTS " + username + "@'localhost' IDENTIFIED B
 cur.execute("GRANT ALL PRIVILEGES ON * TO " + username +"@'localhost' WITH GRANT OPTION")
 cur.execute("FLUSH PRIVILEGES")
 #
-main_config.close
+main_config.close()
 
 #
+tinyfilemanger = open("/var/www/html/tinyfilemanager/tinyfilemanager.php", "rt")
+tinyfilemanger_data = tinyfilemanger.read()
+tinyfilemanger_data  = tinyfilemanger_data.replace("'admin' => '$2y$10$/K.hjNr84lLNDt8fTXjoI.DBp6PpeyoJ.mGwrrLuCZfAwfSAGqhOW', //admin@123", "'"+password+"' => password_hash('"+username+"', PASSWORD_DEFAULT) ")
+tinyfilemanger.close()
+
+tinyfilemanger = open("/var/www/html/tinyfilemanager/tinyfilemanager.php", "wt")
+tinyfilemanger.write(tinyfilemanger_data)
+tinyfilemanger.close()

@@ -49,15 +49,13 @@ sleep  2
 apt install gcc libmariadb3 libmariadb-dev -y
 
 # PHPmyAdmin #
-printf "${BLUE} Installing and Seting up PHPmyAdmin!${NC}\n"
+printf "${BLUE}Installing and Seting up PHPmyAdmin!${NC}\n"
 sleep 2
 apt-get install php-mbstring -y
 a2enmod mbstring
-mkdir /var/www/skylabpanel-tools
-mkdir /var/www/skylabpanel-tools/html
 wget https://go.skylabhosting.co.uk/software-phpmyadmin
-tar -xf software-phpmyadmin -C /var/www/skylabpanel-tools/html
-mv /var/www/skylabpanel-tools/html/phpMyAdmin* /var/www/skylabpanel-tools/html/phpmyadmin
+tar -xf software-phpmyadmin -C /var/www/html
+mv /var/www/html/phpMyAdmin /var/www/html/phpmyadmin
 
 # SQL #
 sleep 2
@@ -70,13 +68,8 @@ mysql -u pma -p$phpmyadmin_password  < /var/www/skylabpanel-tools/html/phpmyadmi
 printf "${BLUE}Installing and Setting up TinyFileManager!${NC}\n"
 sleep 2
 wget https://github.com/prasathmani/tinyfilemanager/archive/master.zip
-unzip -q master.zip -d /var/www/skylabpanel-tools/html
-mv /var/www/skylabpanel-tools/html/tinyfilemanager-master /var/www/skylabpanel-tools/html/tinyfilemanager
-
-# Setup Nginx for Tiny File Manger and PHPmyAdmin #
-cp config-templates/skylabpanel-tools /etc/nginx/sites-available 
-sudo ln -s /etc/nginx/sites-available/skylabpanel-tools /etc/nginx/sites-enabled/
-sudo chmod -R 755 /var/www
+unzip -q master.zip -d /var/www/html
+mv /var/www/html/tinyfilemanager-master /var/www/html/tinyfilemanager
 
 # iRedMail #
 printf "${BLUE} Installing and Seting up iRedMail${NC}\n"
@@ -86,6 +79,12 @@ tar -xf software-iredmail
 cd iRedMail
 chmod +x iRedMail.sh
 /bin/bash iRedMail.sh
+cat /root/skylabpanel-install/iRedMail/iRedMail.tips >> /skylabpanel/info.conf
+
+# Setup Nginx for Tiny File Manger and PHPmyAdmin #
+cp config-templates/00-default-ssl.conf /etc/nginx/sites-available 
+sudo ln -s /etc/nginx/sites-available/skylabpanel-tools /etc/nginx/sites-enabled/
+sudo chmod -R 755 /var/www
 
 # Extra Scripts #
 sleep 2
