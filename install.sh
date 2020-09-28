@@ -13,7 +13,7 @@ if [ "$EUID" -ne 0 ]
 fi
 cd / 
 mkdir skylabpanel 
-cd /skylabpanel-install
+cd /root/skylabpanel-install/
 
 printf "${YELLOW}"
 printf '
@@ -74,7 +74,7 @@ unzip -q master.zip -d /var/www/skylabpanel-tools/html
 mv /var/www/skylabpanel-tools/html/tinyfilemanager-master /var/www/skylabpanel-tools/html/tinyfilemanager
 
 # Setup Nginx for Tiny File Manger and PHPmyAdmin #
-cp /config-templates/skylabpanel-tools /etc/nginx/sites-available 
+cp config-templates/skylabpanel-tools /etc/nginx/sites-available 
 sudo ln -s /etc/nginx/sites-available/skylabpanel-tools /etc/nginx/sites-enabled/
 sudo chmod -R 755 /var/www
 
@@ -82,8 +82,10 @@ sudo chmod -R 755 /var/www
 printf "${BLUE} Installing and Seting up iRedMail${NC}\n"
 sleep 2
 wget https://go.skylabhosting.co.uk/software-iredmail
-tar -xf iRedMail 
-bash iRedMail/iredmail.sh
+tar -xf software-iredmail 
+cd iRedMail
+chmod +x iRedMail.sh
+/bin/bash iRedMail.sh
 
 # Extra Scripts #
 sleep 2
@@ -101,7 +103,9 @@ pip3 install mariadb
 pip3 install WTForms
 pip3 install wtforms.validators
 pip3 install flask_wtf
-
+pip3 install socket
+pip3 install fqdn
+pip3 install nslookup
 
 printf "${BLUE}Everything is installed.Now SkyLab Panel needs to update some configuration files. ${NC}\n"
 
