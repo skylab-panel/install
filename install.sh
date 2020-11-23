@@ -53,8 +53,8 @@ printf "${BLUE}Installing and Seting up PHPmyAdmin!${NC}\n"
 sleep 2
 apt-get install php-mbstring -y
 a2enmod mbstring
-wget https://go.skylabhosting.co.uk/software-phpmyadmin
-tar -xf software-phpmyadmin -C /var/www/html
+wget https://files.phpmyadmin.net/phpMyAdmin/5.0.4/phpMyAdmin-5.0.4-english.tar.gz
+tar -xf phpMyAdmin-5.0.4-english.tar.gz -C /var/www/html
 mv /var/www/html/phpMyAdmin /var/www/html/phpmyadmin
 
 # SQL #
@@ -71,16 +71,9 @@ wget https://github.com/prasathmani/tinyfilemanager/archive/master.zip
 unzip -q master.zip -d /var/www/html
 mv /var/www/html/tinyfilemanager-master /var/www/html/tinyfilemanager
 
-# iRedMail #
-printf "${BLUE} Installing and Seting up iRedMail${NC}\n"
-sleep 2
-wget https://go.skylabhosting.co.uk/software-iredmail
-tar -xf software-iredmail 
-cd iRedMail
-chmod +x iRedMail.sh
-/bin/bash iRedMail.sh
-cat /root/skylabpanel-install/iRedMail/iRedMail.tips >> /skylabpanel/info.conf
-cd /root/skylabpanel-install/
+# Email #
+printf "${BLUE} Installing and Seting up Email${NC}\n"
+apt-get install postfix postfix-mysql dovecot-core dovecot-imapd dovecot-pop3d dovecot-lmtpd dovecot-mysql -y
 
 # Setup Nginx for Tiny File Manger and PHPmyAdmin #
 cp config-templates/00-default-ssl.conf /etc/nginx/sites-available 
